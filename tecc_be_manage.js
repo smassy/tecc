@@ -13,9 +13,15 @@
  * Validates the new item form and, if successful, adds the item. Prints useful feedback messages along the way.
  */
 function addItem() {
-	var msg = document.querySelector("div#msg ul");
+	var msgFrame = document.querySelector("div#msg");
+	var msg = msgFrame.getElementsByTagName("ul");
+	if (msg.length > 0) {
+		msgFrame.removeChild(msg[0]);
+	}
+	msg = document.createElement("ul");
+	msgFrame.appendChild(msg);
 	msg.style.display = "none";
-	var msgItems = msg.getElementsByTagName("li");
+	var msgItems = msg.childNodes;
 	for (var i = 0; i < msgItems.length; i++) {
 		msg.removeChild(msgItems[i]);
 	}
@@ -84,6 +90,7 @@ function addItem() {
 		msg.append(successMsg);
 		syncToStorage();
 		document.getElementById("newitem").reset();
+		populateInventory();
 	}
 	msg.style.display = "block";
 }
@@ -101,10 +108,15 @@ function setup() {
 */
 function getRowFromItem(item, nthOfType) {
 	var row = document.createElement("tr");
-	row.id = item.type + "-" + item.name.replace(/ /g, "_");
+	row.id = (item.isBase) ? "base-" : "optionsl-" + item.type + "-" + item.name.replace(/ /g, "_");
 	var td;
-	td = document.createElement("td");
 	// Action buttons
+	var delButton = document.createElement("button");
+	delButton.innerHTML = "Delete";
+	delButton.addEventListener("click", deleteItem, false);
+	td = document.createElement("td");
+	// Action buttons insert
+	td.appendChild(delButton);
 	row.appendChild(td);
 	td = document.createElement("td");
 	td.innerHTML = item.name;
@@ -128,6 +140,22 @@ function getRowFromItem(item, nthOfType) {
 	// action button
 	row.appendChild(td);
 	return row;
+}
+
+function deleteItem(evt) {
+	var button = evt.target;
+	var row = button.parentNode.parentNode;
+	var cells = row.getElementsByTagName("td");
+	var name = cells[1].innerHTML;
+	var type = cells[2].innerHTML;
+	var group = row.id.slice(0, row.id.indexOf("-"));
+	if (group === "base") {
+		baseItems.delete(type, name);
+	} else {
+		optionalItems.delete(type, name);
+	}
+	row.parentNode.removeChild(row);
+	syncToStorage();
 }
 
 /**
@@ -173,12 +201,11 @@ function getTableFromGroup(group) {
 }
 
 function populateInventory() {
-	// Remove tables if already present
-	var tables = document.getElementsByTagName("table");
-	for (var i = 0; i < tables.length; i++) {
-		tables[i].parentNode.removeChild(tables[i]);
-	}
 	var baseDiv = document.getElementById("baseItems");
+	var baseChildren = baseDiv.childNodes;
+	for (var i = 0; i < baseChildren.length; i++) {
+		baseDiv.removeChild(baseChildren[i]);
+	}
 	var p = document.createElement("p");
 	p.innerHTML = "There are currently no  items defined; please add some if you wish your customers to be able to place an order. here are a few things to remember:<ul><li>Each combination of name and type must be unique.</li><li>types may not contain blank spaces.</li><li>Types are used to group items together so that the customer may choose one of them, which means:</li><ul><li>Types holding multiple items will be presented to the customer as an option group.</li><li>Types containing a single item will be presented to the customer as an optional (checkbox) item.</li><li>Since all base items are required, it only makes sense to have types with single item in the optional group</li></ul></ul>";
 	if (baseItems.count === 0) {
@@ -189,11 +216,15 @@ function populateInventory() {
 		baseDiv.appendChild(table);
 	}
 	var optionalDiv = document.getElementById("optionalItems");
+	var optionalChildren = optionalDiv.childNodes;
+	for (var i = 0; i < optionalChildren.length; i++) {
+		optionalDiv.removeChild(optionalChildren[i]);
+	}
 	if (optionalItems.count === 0 && baseItems.count > 0) {
 		p.innerHTML = p.innerHTML.replace("items", "optional items");
 		optionalDiv.appendChild(p);
 	} else {
-		var table = getTableFromgroup(optionalItems);
+		var table = getTableFromGroup(optionalItems);
 		table.getElementsByTagName("caption")[0].innerHTML = "Inventory: Optional Items";
 		optionalDiv.appendChild(table);
 	}
