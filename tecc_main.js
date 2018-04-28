@@ -75,6 +75,7 @@ function itemGroupFactory() {
 			return this.types.length;
 		},
 		add: function (item) {
+			item.type = item.type.toLowerCase();
 			if (!item.isValidInventory() || this.get(item.type, item.name) !== undefined || item.type === "types") {
 				return false;
 			}
@@ -87,6 +88,7 @@ function itemGroupFactory() {
 			return true;
 		},
 		delete:  function (type, name) {
+			type = type.toLowerCase();
 			var typeIndex = this.types.indexOf(type);
 			if (typeIndex === -1) {
 				return false;
@@ -98,7 +100,7 @@ function itemGroupFactory() {
 			}
 			var found = false;
 			for (var i = 0; i < this[type].length; i++) {
-				if (this[type][i]["name"] === name) {
+				if (this[type][i]["name"].toLowerCase() === name.toLowerCase()) {
 					found = true;
 					this[type].splice(i, 1);
 				}
@@ -106,12 +108,13 @@ function itemGroupFactory() {
 			return found;
 		},
 		get: function (type, name) {
+			type = type.toLowerCase()
 			if (this.types.indexOf(type) === -1 || name === undefined) {
 				return undefined;
 			}
 			var item = undefined;
 			for (var i = 0; i < this[type].length; i++) {
-				if (this[type][i]["name"] === name) {
+				if (this[type][i]["name"].toLowerCase() === name.toLowerCase()) {
 					item = this[type][i];
 				}
 			}
