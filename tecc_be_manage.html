@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--
+	  * Internet 2 Final Project
+	  * The Electric Car Company
+	  * Authors: Carvalho-Dagenais, Matthew; Massy, sebastien; Patel, Parimal
+		-->
+		<meta charset="utf-8" />
+		<title>TECC Back-end - Manage</title>
+	</head>
+	<body>
+		<header>
+			<h1>Manage Options and Inventory</h1>
+		</header>
+
+		<article>
+			<h2>Add an item</h2>
+			<div>
+			<form id="newitem">
+				<label for="iname">Name</label>
+				<input type="text" id="iname" name="name" /><br />
+				<label for="itype">Type</label>
+				<input type="text" name="type" id="itype" />
+				<label for="ibase">Base item</label>
+				<input type="checkbox" id="ibase" name="base" value="true" /><br />
+				<label for="iprice">Price</label>
+				<input type="number" name="price" id="iprice" size="10" />
+				<label for="iturnaround">Number of days to assemble</label>
+				<input type="number" name="turnaround" id="iturnaround" min="0" size="2" /><br />
+				<label for="ireorder">Number of days to re-order</label>
+				<input type="number" name="reorder" id="ireorder" min="0" size="2" />
+				<label for="istock">Number currently in stock</label>
+				<input type="number" name="stock" id="istock" size="5" /><br />
+				<input type="button" id="isubmit" value="Save">
+				<input type="reset" value="Clear" />
+			</form>
+			</div>
+			<div id="msg"><ul></ul></div>
+		</article>
+		<script src="tecc_main.js"></script>
+				<script src="tecc_be_manage.js"></script>
+	</body>
+</html>	
