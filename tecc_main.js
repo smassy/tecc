@@ -93,14 +93,14 @@ function itemGroupFactory() {
 			}
 			if (name === undefined || this[type].length === 1) {
 				delete this[type];
-				delete this.types[typeIndex];
+				this.types.splice(typeIndex, 1);
 				return true;
 			}
 			var found = false;
 			for (var i = 0; i < this[type].length; i++) {
 				if (this[type][i]["name"] === name) {
 					found = true;
-					delete this[type][i];
+					this[type].splice(i, 1);
 				}
 			}
 			return found;
@@ -118,18 +118,13 @@ function itemGroupFactory() {
 			return item;
 		},
 		load: function (that) {
-			this["types"] = that["types"].slice(0);
-			delete that.types;
-			delete that.count;
-			for (var type in that) {
-				this[type] = [];
-				for (var item in that[type]) {
+			for (var i = 0; i < that.types.length; i++) {
+				for (var j = 0; j < that[that.types[i]].length; j++) {
 					var newItem = itemFactory();
-					newItem.load(item);
-					this[type].push(newItem);
+					newItem.load(that[that.types[i]][j]);
+					this.add(newItem);
 				}
 			}
-			return item;
 		}
 	}
 	return itemGroup;
