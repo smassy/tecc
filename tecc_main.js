@@ -108,6 +108,9 @@ function itemGroupFactory() {
 			return found;
 		},
 		get: function (type, name) {
+			if (typeof(type) !== "string") {
+				throw "Did not get a string as type; remember to use innerHTML!";
+			}
 			type = type.toLowerCase()
 			if (this.types.indexOf(type) === -1 || name === undefined) {
 				return undefined;
