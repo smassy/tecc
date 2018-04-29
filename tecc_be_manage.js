@@ -125,7 +125,9 @@ function getRowFromItem(item, nthOfType) {
 	downButton.addEventListener("click", moveItemDown, false);
 	td = document.createElement("td");
 	// Action buttons insert
-	td.appendChild(upButton);
+	if (nthOfType === 0) {
+		td.appendChild(upButton);
+	}
 	td.appendChild(delButton);
 	row.appendChild(td);
 	td = document.createElement("td");
@@ -147,7 +149,9 @@ function getRowFromItem(item, nthOfType) {
 	td.innerHTML = item.stock;
 	row.appendChild(td);
 	td = document.createElement("td");
-	td.appendChild(downButton);
+	if (nthOfType === 0) {
+		td.appendChild(downButton);
+	}
 	row.appendChild(td);
 	return row;
 }
