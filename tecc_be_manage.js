@@ -111,7 +111,7 @@ function setup() {
 */
 function getRowFromItem(item, nthOfType) {
 	var row = document.createElement("tr");
-	row.id = (item.isBase) ? "base-" : "optionsl-" + item.type + "-" + item.name.replace(/ /g, "_");
+	row.id = ((item.isBase) ? "base-" : "optionsl-") + item.type + "-" + item.name.replace(/ /g, "_");
 	var td;
 	// Action buttons
 	var delButton = document.createElement("button");
@@ -137,16 +137,41 @@ function getRowFromItem(item, nthOfType) {
 	td.innerHTML = item.type;
 	row.appendChild(td);
 	td = document.createElement("td");
-	td.innerHTML = "$" + item.price.toLocaleString();
+	td.innerHTML = "$";
+	var input = document.createElement("input");
+	input.type = "number";
+	input.min = "0";
+	input.name = "price";
+	input.value = item.price;
+	input.addEventListener("change", manageUpdateBtn, false);
+	td.appendChild(input);
 	row.appendChild(td);
 	td = document.createElement("td");
-	td.innerHTML = item.turnaround;
+	input = document.createElement("input");
+	input.type = "number";
+	input.min = "0";
+	input.name = "turnaround";
+	input.value = item.turnaround;
+	input.addEventListener("change", manageUpdateBtn, false);
+	td.appendChild(input);
 	row.appendChild(td);
 	td = document.createElement("td");
-	td.innerHTML = item.reorder;
+	input = document.createElement("input");
+	input.type = "number";
+	input.min = "0";
+	input.name = "reorder";
+	input.value = item.reorder;
+	input.addEventListener("change", manageUpdateBtn, false);
+	td.appendChild(input);
 	row.appendChild(td);
 	td = document.createElement("td");
-	td.innerHTML = item.stock;
+	input = document.createElement("input");
+	input.type = "number";
+	input.min = "0";
+	input.name = "stock";
+	input.value = item.stock;
+	input.addEventListener("change", manageUpdateBtn, false);
+	td.appendChild(input);
 	row.appendChild(td);
 	td = document.createElement("td");
 	if (nthOfType === 0) {
@@ -154,6 +179,88 @@ function getRowFromItem(item, nthOfType) {
 	}
 	row.appendChild(td);
 	return row;
+}
+
+/**
+ * Ascertains whether the editable content of a row differs from the information stored in the item object.
+ */
+function rowHasChanged(row) {
+	var inputs = row.getElementsByTagName("input");
+	var cells = row.getElementsByTagName("td");
+	var item;
+	if (row.id.slice(0, row.id.indexOf("-")) == "base") {
+		item = baseItems.get(cells[2].innerHTML, cells[1].innerHTML);
+	} else {
+		item = optionalItems.get(cells[2].innerHTML, cells[1].innerHTML);
+	} 
+	if (inputs[0].value !== item.price) {
+		return true;
+	} else if (inputs[1].value !== item.turnaround) {
+		return true;
+	} else if (inputs[2].value !== item.reorder) {
+		return true;
+	} else if (inputs[3].value !== item.stock) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Event handler for the input fields in the table; logic determines whether the button appears (content has changed), should be disabled (new content not suitable) or disappear (no change).
+ */
+function manageUpdateBtn(evt) {
+	var changedInput = evt.target;
+	var row = changedInput.parentNode.parentNode;
+	var oldButton = document.getElementById(row.id + "-update");
+	if (oldButton) {
+		oldButton.parentNode.removeChild(oldButton);
+	}
+	var inputs = row.getElementsByTagName("input");
+	if (rowHasChanged(row)) {
+		var updateButton = document.createElement("button");
+		updateButton.id = row.id + "-update";
+		updateButton.innerHTML = "Update";
+		updateButton.addEventListener("click", updateFromRow, false);
+		for (var i = 0; i < inputs.length; i++) {
+			if (isNaN(inputs[i].value) || inputs[i].value < 0 || inputs[i].value === "") {
+				console.log("Came here.");
+				updateButton.disabled = true;
+			}
+		}
+		row.getElementsByTagName("td")[7].appendChild(updateButton);
+	}
+}
+
+/**
+ * Event handler for the update button; syncs the new information to the item object.
+ */
+function updateFromRow(evt) {
+	var button = evt.target;
+	var row = button.parentNode.parentNode;
+	var cells = row.getElementsByTagName("td");
+	var inputs = row.getElementsByTagName("input");
+	var item;
+	if (row.id.slice(0, row.id.indexOf("-")) === "base") {
+		item = baseItems.get(cells[2].innerHTML, cells[1].innerHTML);
+	} else {
+		item = optionalItems.get(cells[2].innerHTML, cells[1].innerHTML);
+	}
+	if (inputs[0].value !== item.price) {
+		item.price = inputs[0].value;
+	}
+	if (inputs[1].value !== item.turnaround) {
+		item.turnaround = inputs[1].value;
+	}
+	if (inputs[2] !== item.reorder) {
+		item.reorder = inputs[3].value;
+	}
+	if (inputs[3].value !== item.stock) {
+		item.stock = inputs[3].value;
+	}
+	var oldButton = document.getElementById(row.id + "-update");
+	oldButton.parentNode.removeChild(oldButton);
+	syncToStorage();
 }
 
 /**
@@ -289,7 +396,6 @@ function moveItemDown(evt) {
 	var cells = row.getElementsByTagName("td");
 	if (row.id.slice(0, row.id.indexOf("-")) === "base") {
 		moveType(baseItems.types, cells[2].innerHTML, "-");
-
 	} else {
 		moveType(optionalItems.types, cells[2].innerHTML, "-");
 	}
