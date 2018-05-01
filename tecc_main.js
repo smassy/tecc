@@ -175,6 +175,7 @@ function orderFactory() {
 		load: function (that) {
 			this.date = new Date(that.date);
 			delete that.date;
+			delete that.turnaround;
 			for (var prop in that) {
 				this[prop] = that[prop];
 			}
@@ -233,9 +234,9 @@ function loadFromStorage() {
 	if (localStorage[STOR_NAME] !== undefined) {
 		var storageSpace = JSON.parse(localStorage.getItem(STOR_NAME));
 		orders = [];
-		for (var order in storageSpace.orders) {
+		for (var i = 0; i < storageSpace.orders.length; i++) {
 			var newOrder = orderFactory();
-			newOrder.load(order);
+			newOrder.load(storageSpace.orders[i]);
 			orders.push(newOrder);
 		}
 		baseItems = itemGroupFactory();
@@ -262,6 +263,52 @@ function syncToStorage() {
 	storageSpace.optionalItems = optionalItems;
 	storageSpace.lastOrderId = lastOrderId;
 	localStorage.setItem(STOR_NAME, JSON.stringify(storageSpace));
+}
+
+/* Helper functions */
+
+/**
+ * Returns the index of an order in the array, given its id; returns undefined if id is not found.
+*/
+function getOrderIdxById(id) {
+	var idx = undefined;
+	for (var i = 0; i < orders.length; i++) {
+		if (orders[i].id === id) {
+			idx = i;
+		}
+	}
+	return idx;
+}
+
+/**
+ * Get the total expected wait time for anm order given its position in the queue. If no order id is specified, returns the total time for orders to be complete.
+ */
+function getWaitTime(id) {
+	var idx;
+	if (id) {
+		idx  = getOrderIdxById(id);
+		if (idx === undefined) {
+			return undefined;
+		}
+	} else {
+		idx = 0;
+	}
+	var totalWait = 0;
+	for (var i = orders.length - 1; i > idx - 1; i--) {
+		totalWait += orders[i].turnaround;
+	}
+	var now = new Date();
+	var daysRemaining = Math.round((now - orders[orders.length - 1].date) / (24 * 3600 * 1000), 0);
+	daysRemaining = (daysRemaining > 0) ? daysRemaining : 0; // If days remaining is negative then order time is exceeded and we don't want to count it.
+	totalWait += daysRemaining;
+	return totalWait;
+}
+
+/**
+ * Returns the average wait time for an order.
+ */
+function getAverageWaitTime() {
+	return getWaitTime() / orders.length;
 }
 
 /*  House keeping */
