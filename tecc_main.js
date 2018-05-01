@@ -11,7 +11,6 @@
 var storage = checkStorage(); // If the browser does not support webstorage then we bail as nothing will work.
 const STOR_NAME = "TECC";
 var orders;
-var heldOrders;
 var baseItems;
 var optionalItems;
 var lastOrderId;
@@ -223,12 +222,6 @@ function loadFromStorage() {
 			newOrder.load(order);
 			orders.push(newOrder);
 		}
-		heldOrders = [];
-		for (var order in storageSpace.heldOrders) {
-			var newOrder = orderFactory();
-			newOrder.load(order);
-			heldOrders.push(newOrder);
-		}
 		baseItems = itemGroupFactory();
 		baseItems.load(storageSpace.baseItems);
 		optionalItems = itemGroupFactory();
@@ -236,7 +229,6 @@ function loadFromStorage() {
 		lastOrderId = storageSpace.lastOrderId;
 	} else {
 		orders = [];
-		heldOrders = [];
 		baseItems = itemGroupFactory();
 		optionalItems = itemGroupFactory();
 		lastOrderId = 0;
@@ -250,7 +242,6 @@ function loadFromStorage() {
 function syncToStorage() {
 	var storageSpace = {};
 	storageSpace.orders = orders;
-	storageSpace.heldOrders = heldOrders;
 	storageSpace.baseItems = baseItems;
 	storageSpace.optionalItems = optionalItems;
 	storageSpace.lastOrderId = lastOrderId;
