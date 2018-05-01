@@ -111,8 +111,11 @@ function itemGroupFactory() {
 				throw "Did not get a string as type; remember to use innerHTML!";
 			}
 			type = type.toLowerCase()
-			if (this.types.indexOf(type) === -1 || name === undefined) {
+			if (this.types.indexOf(type) === -1) {
 				return undefined;
+			}
+			if (name === undefined) {
+				return this[type];
 			}
 			var item = undefined;
 			for (var i = 0; i < this[type].length; i++) {
