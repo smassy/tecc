@@ -73,7 +73,7 @@ function addItem() {
 			msg.appendChild(numMsg);
 			valid = false;
 		} else {
-			newItem[numberFields[i].name] = numberFields[i].value;
+			newItem[numberFields[i].name] = Number(numberFields[i].value);
 		}
 	}
 	var created;
@@ -246,17 +246,17 @@ function updateFromRow(evt) {
 	} else {
 		item = optionalItems.get(cells[2].innerHTML, cells[1].innerHTML);
 	}
-	if (inputs[0].value !== item.price) {
-		item.price = inputs[0].value;
+	if (Number(inputs[0].value) !== item.price) {
+		item.price = Number(inputs[0].value);
 	}
-	if (inputs[1].value !== item.turnaround) {
-		item.turnaround = inputs[1].value;
+	if (Number(inputs[1].value) !== item.turnaround) {
+		item.turnaround = Number(inputs[1].value);
 	}
-	if (inputs[2] !== item.reorder) {
-		item.reorder = inputs[3].value;
+	if (Number(inputs[2].value) !== item.reorder) {
+		item.reorder = Number(inputs[3].value);
 	}
-	if (inputs[3].value !== item.stock) {
-		item.stock = inputs[3].value;
+	if (Number(inputs[3].value) !== item.stock) {
+		item.stock = Number(inputs[3].value);
 	}
 	var oldButton = document.getElementById(row.id + "-update");
 	oldButton.parentNode.removeChild(oldButton);
