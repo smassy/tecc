@@ -147,7 +147,18 @@ function orderFactory() {
 		payment: undefined,
 		items: [],
 		setId: function () {
-			this.id = ++lastOrderId;
+			if (this.id < 1) {
+				this.id = ++lastOrderId;
+				return this.id;
+			}
+			return this.id;
+		},
+		get turnaround() {
+			var totalTurnaround = 0;
+			for (var i = 0; i < this.items.length; i++) {
+				totalTurnaround += this.items[i].turnaround;
+			}
+			return totalTurnaround;
 		},
 		isValid: function () {
 			var valid = false;
