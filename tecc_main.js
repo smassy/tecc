@@ -137,18 +137,20 @@ function itemGroupFactory() {
 
 /**
  * Returns an order object with its id set to the next available order id and date set to the time of creation; includes a method to validate the order.
+ * - A setId() method which officially initialises the order id and order date.
  * - A load method exists to facilitate restoring information from JSON.
  */
 function orderFactory() {
 	var order = {
 		id: -1,
-		date: new Date(),
+		date: undefined,
 		customer: undefined,
 		payment: undefined,
 		items: [],
 		setId: function () {
 			if (this.id < 1) {
 				this.id = ++lastOrderId;
+				this.date = new Date();
 				return this.id;
 			}
 			return this.id;
