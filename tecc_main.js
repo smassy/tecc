@@ -15,6 +15,8 @@ var baseItems;
 var optionalItems;
 var lastOrderId;
 
+function getCurrency(currency) {return "$" + currency;} // Passthrough function for now.
+
 /* Factories */
 
 /**
@@ -46,6 +48,15 @@ function itemFactory() {
 			delete newItem.reorder;
 			delete newItem.stock;
 			return newItem;
+		},
+		toString: function () {
+			var string = this.name;
+			if (this.stock > 0) {
+				string += " (" + getCurrency(this.price) + " - " + this.turnaround + " days installation)";
+			} else {
+				string += " (Currently out of stock but expected in the next " + this.reorder + "days)";
+			}
+			return string;
 		},
 		load: function (that) {
 			for (var prop in that) {
