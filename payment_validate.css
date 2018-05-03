@@ -1,0 +1,20 @@
+/* Validation Styles */
+input:focus, select:focus, textarea:focus{
+	background-color: rgb(245, 245, 140);
+}
+
+#fnamebox:focus:valid, #lnamebox:focus:valid, #emailbox:focus:valid, #phonebox:focus:valid, 
+#addressbox:focus:valid, #citybox:focus:valid, #postalcodebox:focus:valid{
+	background-color: rgb(220, 255, 220);
+	background-image: url("payment_valid.png");
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+#fnamebox:focus:invalid, #lnamebox:focus:invalid, #emailbox:focus:invalid, #phonebox:focus:invalid,
+ #addressbox:focus:invalid, #citybox:focus:invalid, #postalcodebox:focus:invalid, #cardbox:focus:invalid, #cvvbox:focus:invalid{
+	background-color: rgb(255, 232, 232);
+	background-image: url("payment_invalid.png");
+	background-repeat: no-repeat;
+	background-position: right;
+}
