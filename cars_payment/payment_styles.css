@@ -1,0 +1,263 @@
+
+/* Header Styles */
+header{
+    padding-top: 5px;
+    background-color: limegreen;
+    color: #FFFFFF;
+    padding-left: 80px;
+    border-bottom: 4px solid green;
+    border-radius: 6px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+}
+
+header a, header a:visited{
+    color: #000000;
+}
+
+header a:hover{
+    color: #FFFFFF
+}
+
+#incompleteFormWarning p{
+    width: 830px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: rgb(250, 94, 94);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: 3px solid rgb(177, 5, 5);
+    border-radius: 10px 10px 10px 10px;
+}
+
+#formThanks p{
+    width: 830px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: rgb(94, 219, 250);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: 3px solid blue;
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* Section and Form Styles */
+section{
+    width: 800px;
+    margin: auto;
+    padding: 15px 15px 15px 15px;
+    background-color: #777777;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+}
+
+fieldset{
+    border: 0px none;
+}
+
+legend{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.8em;
+    border-left: 5px solid blue;
+}
+
+label{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 110%;
+    padding: 4px 4px 4px 4px;
+}
+
+.info{
+    background-color: #EEEEEE;
+    border: 3px solid #999999;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+/* Billing Information Styles  */
+#customerInfo{
+    padding-top: 20px;
+}
+
+#firstNameDiv{
+    display: block;
+    float: left;
+    width: 300px;
+    padding-left:50px;
+}
+#lastNameDiv{
+    display: block;
+    float: right;
+    width: 300px;
+    padding-left:50px;
+}
+#lastNameDiv label{
+    padding-left: 40px;
+}
+#names{
+    display: block;
+    float: left;
+    margin-bottom: 20px;
+}
+
+#emailDiv{
+    display: block;
+    float: left;
+    width: 300px;
+    padding-left:45px;
+}
+#emailDiv label{
+    padding-left: 50px;
+}
+#phoneDiv{
+    display: block;
+    float: right;
+    width: 300px;
+    padding-left:55px;
+}
+#emailAndPhone{
+    display: block;
+    float: left;
+    margin-bottom: 0px;
+}
+
+#address{
+    display: block;
+    float: left;
+    margin-bottom: 15px;
+}
+#addressDiv{
+    display: block;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    width: 800px;
+}
+#addressDiv input{
+    width: 78%;
+}
+
+#countryInfo{
+    display: block;
+    float: left;
+    padding-bottom: 20px;
+}
+
+#locationInfo{
+    display: block;
+    float: left;
+    padding-bottom: 30px;
+}
+#stateDiv, #cityDiv, #zipDiv{
+    display: block;
+    float: left;
+    clear: right;
+    padding-right: 39px;
+}
+#zipDiv input{
+    width: 60px;
+}
+
+
+/* Payment Information Styles  */
+#cardNumberDiv{
+    display: block;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+#cardNumberDiv label{
+    padding-left: 27%;
+}
+
+#cardTypeDiv{
+    display: block;
+    clear: left;
+    padding-bottom: 10px;
+    padding-left: 23%;
+}
+
+#expirationDiv{
+    display: block;
+    clear: left;
+    padding-bottom: 10px;
+    padding-left: 19%;
+}
+#expirationDiv label{
+    padding-left: 40px;
+}
+
+#cvvDiv{
+    display: block;
+    clear: left;
+}
+#cvvDiv label{
+    padding-left: 35%;
+}
+
+#litecoinDiv{
+    display: block;
+    clear: left;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 35%;
+}
+#litecoinDiv p{
+    padding-left: 35px;
+}
+
+
+/* Payment Plan Styles*/
+ul {
+    list-style-type: none;
+    line-height: 2em;
+}
+
+/* Total Cost Styles */
+table{
+    margin: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+table td{
+    padding: 5px;
+}
+.total{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* Button Styles */
+#buttonDiv{
+    text-align: center;
+    margin: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    transform: scale(2);
+}
+
+/* Footer Styles */
+footer{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 50px;
+    background-color: darkslategrey;
+    color: #FFFFFF;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Error Messages Styles */
+.error{
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center; 
+}

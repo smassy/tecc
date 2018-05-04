@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Pay For Your Car</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="payment_styles.css">
+    <script src="states_arrays.js"></script>
+</head>
+<body>
+    <header>
+        <p><a href="#">Return to order</a></p>
+        <h1>Pay For Your Car</h1>
+    </header>
+
+    <div id="incompleteFormWarning">
+        <p id="formError" style="display: none;">Please fill out the form before submitting</p>
+    </div>
+
+    <section>
+
+        <form action="results.html" novalidate="novalidate">
+
+            <div class="info" id="billing">
+                <fieldset id="billingAddr">
+                    <legend>Billing Address</legend>
+                    <div id="customerInfo" class="paymentBlock">
+                        <div id="names">
+                            <div id="firstNameDiv">
+                                <label for="fnamebox">First Name: </label>
+                                <input type="text" name="firstName" id="fnamebox"/>
+                                <p class="error" id="firstNameError" style="display: none;"></p>
+                            </div>
+                            <div id="lastNameDiv">
+                                <label for="lnamebox">Last Name: </label>
+                                <input type="text" name="lastName" id="lnamebox"/>
+                                <p class="error" id="lastNameError" style="display: none;"></p>
+                            </div>
+                        </div>
+                        <div id="emailAndPhone">
+                            <div id="emailDiv">
+                                <label for="emailbox">Email: </label>
+                                <input type="text" name="email" id="emailbox" placeholder="example@email.com"/>
+                                <p class="error" id="emailError" style="display: none;"></p>
+                            </div>
+                            <div id="phoneDiv">
+                                <label for="phonebox">Phone Number: </label>
+                                <input type="text" name="phone" id="phonebox"/>
+                                <p class="error" id="phoneError" style="display: none;"></p>
+                            </div>
+                        </div>
+                        <div id="address">
+                            <div id="addressDiv">
+                                <label for="addressbox">Address: </label>
+                                <input type="text" name="address" id="addressbox"/>
+                                <p class="error" id="addressError" style="display: none;"></p>
+                            </div>
+                        </div>
+                        </div>
+                        <div id="countryInfo">
+                            <label for="country">Country: </label>
+                            <select name="country" id="countrybox">
+                                <option value="canada" default>Canada</option>
+                                <option value="mexico" default>Mexico</option>
+                                <option value="usa">United States Of America</option>
+                            </select>
+                        </div>
+                        <div id="locationInfo">
+                            <div id="stateDiv">
+                                <label for="statebox" id="statelabel">Province: </label>
+                                <select name="state" id="statebox">
+                                    <!--This is being added via JavaScript-->
+                                </select>
+                                <p class="error" id="stateError" style="display: none;"></p>
+                            </div>
+                            <div id="cityDiv">
+                                <label for="citybox">City: </label>
+                                <input type="text" name="city" id="citybox"/>
+                                <p class="error" id="cityError" style="display: none;"></p>
+                            </div>
+                            <div id="zipDiv">
+                                <label for="zipbox" id="ziplabel">Postal Code: </label>
+                                <input type="text" name="zipcode" id="zipbox"/>
+                                <p class="error" id="zipError" style="display: none;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <br>
+
+            <div class="info" id="payment">
+                <fieldset id="paymentInfo">
+                    <legend>Payment Information</legend>
+                    <div id="paymentInfo" class="paymentBlock">
+                        <div id="cardNumberDiv">
+                            <label for="cardbox">Credit Card Number: </label>
+                            <input type="number" name="cardNumber" id="cardbox"/>
+                            <p class="error" id="cardNumberError" style="display: none;"></p>
+                        </div>
+                        <div id="cardTypeDiv">
+                            <input id="visa" class="card" name="cardType" type="radio" value="Visa" />
+                            <label for="visa"><img src="images\visa.jpg" alt="Visa" height="32" width="60"></label>
+                            <input id="mc" class="card" name="cardType" type="radio" value="MC" />
+                            <label for="mc"><img src="images\mastercard.jpg" alt="Master Card" height="32" width="60"></label>
+                            <input id="discover" class="card" name="cardType" type="radio" value="Discover" />
+                            <label for="discover"><img src="images\discover.png" alt="Discover" height="32" width="60"></label>
+                            <input id="amex" class="card" name="cardType" type="radio" value="AmEx" />
+                            <label for="amex"><img src="images\amex.png" alt="Visa" height="32" width="60"></label>
+                        </div>
+                        <div id="expirationDiv">
+                            <label for="expiremonthbox" id="expMoLabel">Expiration Month: </label>
+                            <select id="expmonthbox" name="expMonth" required="required">
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <label for="expyearbox" id="expYrLabel">Expiration Year: </label>
+                            <select id="expyearbox" name="expYear" required="required">
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                            </select>
+                        </div>
+                        <div id="cvvDiv">
+                            <label for="cvvbox">CVV: </label>
+                            <input id="cvvbox" name="cvv" type="number"/> 
+                            <p class="error" id="cvvError" style="display: none;"></p>
+                        </div>
+                        <div id="litecoinDiv">
+                            <input type="radio" name="litecoin" id="litecoinbox" disabled/>
+                            <label for="litecoinbox"><img src="images\litecoin.png" alt="Pay with Litecoin" height="60" width="180"></label>
+                            <p>(temporarilly unavailable)</p>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <br/>
+
+            <div class="info" id="plan">
+                <fieldset id="planInfo">
+                    <legend>Payment Plan</legend>
+                    <ul>
+                        <li>
+                            <input type="radio" name="plan" class="plan" id="single" value="single" checked="checked"/>
+                            <label for="single">Single Payment</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="plan" class="plan" id="multiple" value="multiple" />
+                            <label for="multiple">Multiple Payments (fee of 4%)</label>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+
+            <br/>
+
+            <div class="info" id="price">
+                <fieldset id="priceInfo">
+                    <legend>Total Cost</legend>
+                    <table>
+                        <colgroup>
+                            <col class="label" />
+                            <col class="amount" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                               <td>Item total</td>
+                               <td id="totalBeforeTax"></td>
+                            </tr>
+                            <tr>
+                               <td>Tax</td>
+                               <td id="tax"></td>
+                            </tr>
+                            <tr>
+                               <td class="total">Total with tax</td>
+                               <td class="total" id="totalWithTax"></td>
+                            </tr>
+                         </tbody>
+                    </table>
+                </fieldset>
+            </div>
+
+            <br/>
+
+            <div class="info" id="submit">
+                <fieldset>
+                    <legend>Submit Order</legend>
+                    <div id="buttonDiv">
+                        <button type="submit">Submit</button>
+                    </div>
+                    <!-- <p style="text-align: center;">Please enter a valid name</p> -->
+                </fieldset>
+            </div>
+
+        </form>
+
+    </section>
+<br/>
+    <footer>
+        <p style="text-align: center;">Copyright PurchasePal&copy 2018</p>
+    </footer>
+    <script src="payment_script.js"></script>
+</body>
+</html>
