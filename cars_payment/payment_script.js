@@ -3,7 +3,7 @@
 
 var formValidity = true;
 var multipleFee = 1.04;
-var totalCost = 10;
+var totalCost = 10;       //Change this: take from backend
 
 //Corrects the state/province select option depending
 //on which country is selected
