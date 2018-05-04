@@ -10,6 +10,7 @@
 
 var storage = checkStorage(); // If the browser does not support webstorage then we bail as nothing will work.
 const STOR_NAME = "TECC";
+const BASE_TURNAROUND = 3; // Minimum # of days to put car together sans additional assembly.
 var orders;
 var baseItems;
 var optionalItems;
@@ -170,11 +171,18 @@ function orderFactory() {
 			return this.id;
 		},
 		get turnaround() {
-			var totalTurnaround = 0;
+			var totalTurnaround = BASE_TURNAROUND;
 			for (var i = 0; i < this.items.length; i++) {
 				totalTurnaround += this.items[i].turnaround;
 			}
 			return totalTurnaround;
+		},
+		get price() {
+			var totalPrice = 0;
+			for (var i = 0; i < this.items.length; i++) {
+				totalPrice += this.items[i].price;
+			}
+			return totalPrice;
 		},
 		isValid: function () {
 			var valid = false;
