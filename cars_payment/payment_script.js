@@ -102,7 +102,6 @@ function validateCardType()
 }
 
 //Checks to see if user has entered a first and last name
-//PS: Might have to clean this up...
 function validateFirstName()
 {
     var validity = true;
