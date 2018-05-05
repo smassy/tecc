@@ -8,8 +8,11 @@
  * uddating their information.
  */
 
-var order;
+var order; //  Order in process
 
+/**
+ * Fills up the order overview
+ */
 function populateWaitTimeInfo() {
 	var div = document.getElementById("waitTimeInfo");
 	var p = div.getElementsByTagName("p");
@@ -21,6 +24,9 @@ function populateWaitTimeInfo() {
 	div.appendChild(p);
 }
 
+/**
+ * Updates the information in the orderSummary div.
+ */
 function refreshOrderSummary() {
 	var div = document.getElementById("orderSummary");
 	var ul = div.getElementsByTagName("ul");
@@ -42,6 +48,9 @@ function refreshOrderSummary() {
 	div.appendChild(ul);
 }
 
+/**
+ * Populates the order form according to information set in the back_end.
+ */
 function generateOrderForm() {
 	var div = document.getElementById("buildForm");
 	var form = div.getElementsByTagName("form")[0];
@@ -163,6 +172,9 @@ function generateOrderForm() {
 	div.appendChild(form);
 }
 
+/**
+ * Harvests the information in the form to populate the order information.
+ */
 function compileOrder() {
 	order.items = [];
 	var baseInputs = document.querySelectorAll("fieldset#baseItems input.choice");
@@ -180,6 +192,9 @@ function compileOrder() {
 	refreshOrderSummary();
 }
 			
+/**
+ * Event handler for the "Proceed to checkout" button. Calls on order fulfillment and moves on to the checkout info page.
+ */
 function handleSubmission() {
 	var oId;
 	try {
@@ -192,12 +207,24 @@ function handleSubmission() {
 	return;
 }
 
-function setup() {
+/**
+ * Calls a group of functions to carry out page refresh.
+*/
+function refresh() {
 	populateWaitTimeInfo();
-	order = orderFactory();
 	generateOrderForm();
 	compileOrder();
 	refreshOrderSummary();
+}
+
+/**
+ * Janitorial function to carry out necessary house-keeping on load.
+ */
+function setup() {
+	getCurrencyWidget(document.getElementsByTagName("header")[0]);
+	document.getElementById("currencyWidget").addEventListener("change", refresh, false);	
+	order = orderFactory();
+	refresh();
 }
 
 window.addEventListener("load", setup, false);
