@@ -3,7 +3,11 @@
 
 var formValidity = true;
 var multipleFee = 1.04;
-var totalCost = 10;       //Change this: take from backend
+var totalCost = orderFactory().price;
+// var totalCost = order.price; This will not work
+// var totalCost = orders.price;
+// var totalCost = orders.price();
+// var totalCost = order.price();
 
 //Corrects the state/province select option depending
 //on which country is selected
@@ -644,6 +648,8 @@ function createEventListeners()
 //Used to set up the script
 function setUpPage()
 {
+    loadFromStorage();
+    syncToStorage();
     displayCosts();
     correctCountry();
     createEventListeners();
