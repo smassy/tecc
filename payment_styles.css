@@ -1,11 +1,25 @@
 
-/* Header Styles */
+/* HTML and Body Styles */
 
 html {
    background: rgb(45, 110, 154);
    font-family: Verdana, Geneva, sans-serif;
    height: 100%;
 }
+
+body {
+   background-color: rgb(229, 228, 226);
+   box-shadow: rgb(51, 51, 51) 10px 0px 40px, rgb(51, 51, 51) -10px 0px 40px;
+   border-left: 1px solid rgb(3, 51, 86);
+   border-right: 1px solid rgb(3, 51, 86);
+   min-height: 100%;   
+   margin: 0px auto;
+   min-width: 320px;
+   max-width: 1024px;   
+   width: 100%;
+}
+
+/* Header Styles */
 
 header{
 	background: linear-gradient(to right, rgb(166, 222, 254) 20%, rgb(3, 51, 86));
@@ -25,7 +39,6 @@ header h1{
    letter-spacing: 0.03em;
    line-height: 1.2em;
    margin-bottom: 20px;
-   text-align: center;
 }
 
 header a, header a:visited{
@@ -77,11 +90,15 @@ label{
 
 /* Billing Information Styles  */
 
-
-form > #billing input, form > #billing select {
-   display: block;
-   margin: 5px;
+div#customerInfo, div#countryInfo, div#locationInfo{
+	text-align: center;
 }
+
+form > #billing input, form > #billing select{
+	margin: auto;
+	display: block;
+}
+
 
 /* Payment Information Styles  */
 #cardNumberDiv{
@@ -155,11 +172,11 @@ button[type='submit'] {
    background-color: rgb(33, 88, 132);
    color: rgb(229, 228, 226);
    border-radius: 20px;
-   float: none;
-   display: inline;
+   display: block;
    font-size: 1.1em;
    height: 30px;
    width: 150px;
+   margin: auto;
 }
 
 /* Footer Styles */
