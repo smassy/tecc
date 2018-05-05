@@ -15,8 +15,9 @@ var orders;
 var baseItems;
 var optionalItems;
 var lastOrderId;
-
-function getCurrency(currency) {return "$" + currency;} // Passthrough function for now.
+var currencyRates = {};
+var selectedCurrency = "CAD"; // The default is CAD;
+var request; // Global for an XMLHttpRequest object
 
 /* Factories */
 
@@ -378,11 +379,52 @@ function cancelOrder(id) {
 	return true;
 }
 
+/* currency conversion related functions */
+
+/**
+ * Retrieves currency conversion rates.
+ */
+function fetchCurrencyRates() {
+	request = new XMLHttpRequest();
+	request.open("get", "http://free.currencyconverterapi.com/api/v5/convert?q=CAD_USD,CAD_MXN&compact=y");
+	request.send(null);
+	request.onreadystatechange = setCurrencyRates;
+}
+
+/**
+ * Event handler to set currency conversion rates.
+ */
+function setCurrencyRates() {
+	if (request.readyState === 4 && request.status === 200) {
+		var response = JSON.parse(request.responseText);
+		currencyRates.USD = response.CAD_USD.val;
+		currencyRates.MXN = response.CAD_MXN.val;
+	}
+}
+
+/**
+ * Returns a formatted string with converted amount according to the selectedCurrency variable.
+ */
+function getCurrency(amount) {
+	var fmtAmount;
+	if (selectedCurrency === "CAD") {
+		fmtAmount = "CAD $" + amount.toFixed(2);
+	} else if (selectedCurrency === "USD") {
+		fmtAmount = "USD $" + (amount * currencyRates.USD).toFixed(2);
+	} else if (selectedCurrency === "MXN") {
+		fmtAmount = "MXN &#8369;" + (amount * currencyRates.MXN).toFixed(2);
+	} else {
+		throw "Unknown currency code: this shouldn't have happened.";
+	}
+	return fmtAmount;
+}
+
 /*  House keeping */
-function setup() {
+function mainSetup() {
 	loadFromStorage();
+	fetchCurrencyRates();
 }
 
 if (window.addEventListener && storage) {
-	window.addEventListener("load", setup, false);
+	window.addEventListener("load", mainSetup, false);
 }
