@@ -17,7 +17,7 @@ function populateWaitTimeInfo() {
 		div.removeChild(p[0]);
 	}
 	p = document.createElement("p");
-	p.innerHTML = "There are currently " + orders.length + " orders in the queue with a total combined fulfillment time of " + getWaitTime() + " days for an average of " + getAverageWaitTime() + " per order.";
+	p.innerHTML = "There are currently " + orders.length + " orders in the queue with a total combined fulfillment time of " + getWaitTime() + " days for an average of " + getAverageWaitTime() + " days per order.";
 	div.appendChild(p);
 }
 
@@ -88,6 +88,7 @@ function generateOrderForm() {
 	}
 	form.appendChild(baseFieldset);
 	var opFieldset = document.createElement("fieldset");
+	opFieldset.id = "optionalItems";
 	legend = document.createElement("legend");
 	legend.innerHTML = "Optional Items";
 	opFieldset.appendChild(legend);
@@ -101,6 +102,7 @@ function generateOrderForm() {
 			input.type = "checkbox";
 			input.id = id;
 			input.name = optionalItems.types[i];
+			input.value = 0;
 			if (optionalItems[optionalItems.types[i]][0].stock < 1) {
 				input.disabled = true;
 				input.className = "backorder";
@@ -144,12 +146,13 @@ function generateOrderForm() {
 				optionsDiv.appendChild(label);
 			}
 			subFieldset.appendChild(optionsDiv);
-			opFieldset.appendChild(optionsDiv);
+			opFieldset.appendChild(subFieldset);
 		}
 	}
 	form.appendChild(opFieldset);
 	var inputs = form.getElementsByTagName("input");
 	for (var i = 0; i < inputs.length; i++) {
+		inputs[i].className = "choice";
 		inputs[i].addEventListener("change", compileOrder, false);
 	}
 	var button = document.createElement("button");
@@ -159,18 +162,31 @@ function generateOrderForm() {
 	div.appendChild(form);
 }
 
-function compileOrder() {return null;}
-
-
-
-
+function compileOrder() {
+	order.items = [];
+	var baseInputs = document.querySelectorAll("fieldset#baseItems input.choice");
+	for (var i = 0; i < baseInputs.length; i++) {
+		if (baseInputs[i].checked) {
+			order.items.push(baseItems[baseInputs[i].name][baseInputs[i].value]);
+		}
+	}
+	var optionalInputs = document.querySelectorAll("fieldset#optionalItems input.choice");
+	for (var i = 0; i < optionalInputs.length; i++) {
+		if (optionalInputs[i].checked && optionalInputs[i].value !== "None") {
+			order.items.push(optionalItems[optionalInputs[i].name][optionalInputs[i].value]);
+		}
+	}
+	refreshOrderSummary();
+}
+			
 
 
 function setup() {
 	populateWaitTimeInfo();
 	order = orderFactory();
-	refreshOrderSummary();
 	generateOrderForm();
+	compileOrder();
+	refreshOrderSummary();
 }
 
 window.addEventListener("load", setup, false);
