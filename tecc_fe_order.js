@@ -158,6 +158,7 @@ function generateOrderForm() {
 	var button = document.createElement("button");
 	button.id = "checkoutBtn";
 	button.innerHTML = "Proceed To Checkout";
+	button.addEventListener("click", handleSubmission, false);
 	form.appendChild(button);
 	div.appendChild(form);
 }
@@ -179,7 +180,17 @@ function compileOrder() {
 	refreshOrderSummary();
 }
 			
-
+function handleSubmission() {
+	var oId;
+	try {
+		id = fulfillOrder(order);
+	} catch (e) {
+		alert(e);
+		return false;
+	}
+	//window.location
+	return;
+}
 
 function setup() {
 	populateWaitTimeInfo();
