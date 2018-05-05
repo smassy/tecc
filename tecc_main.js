@@ -407,12 +407,13 @@ function setCurrencyRates() {
  */
 function getCurrency(amount) {
 	var fmtAmount;
+	var opts = {MinimumFractionDigits: 2, maximumFractionDigits: 2};
 	if (selectedCurrency === "CAD") {
-		fmtAmount = "CAD $" + amount.toFixed(2);
+		fmtAmount = "CAD $" + amount.toLocaleString(undefined, opts);
 	} else if (selectedCurrency === "USD") {
-		fmtAmount = "USD $" + (amount * currencyRates.USD).toFixed(2);
+		fmtAmount = "USD $" + (amount * currencyRates.USD).toLocaleString(undefined, opts);
 	} else if (selectedCurrency === "MXN") {
-		fmtAmount = "MXN &#8369;" + (amount * currencyRates.MXN).toFixed(2);
+		fmtAmount = "MXN &#8369;" + (amount * currencyRates.MXN).toLocaleString(undefined, opts);
 	} else {
 		throw "Unknown currency code: this shouldn't have happened.";
 	}
