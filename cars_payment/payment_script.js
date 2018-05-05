@@ -437,7 +437,7 @@ function validateForm(evt)
 	}
 }
 
-//Displays the total cost for 
+//Displays the total cost for the purchase
 function displayCosts()
 {
     var beforeTaxElement = document.getElementById("totalBeforeTax");
