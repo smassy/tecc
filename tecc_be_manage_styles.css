@@ -114,8 +114,10 @@ input{
 }
 
 div#msg{
-   display: block;
-   margin: 5px;
+   color: rgb(33, 88, 132);
+   font-family: 'Century Gothic', sans-serif;
+   padding: 5px;
+   
 }
 
 /* Button Styles */
@@ -139,7 +141,6 @@ td button{
    height: 30px;
    width: 60px;
 }
-
 
 
 
