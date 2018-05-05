@@ -419,6 +419,55 @@ function getCurrency(amount) {
 	return fmtAmount;
 }
 
+/**
+ * Returns a widget which allows to switch currency; if an html node is supplied, appends the widget as a child of that node.
+*/
+function getCurrencyWidget(parent) {
+	var widget = document.createElement("select");
+	widget.id = "currencyWidget";
+	widget.name = "currency";
+	var option = document.createElement("option");
+	option.value = "CAD";
+	option.id = "CAD";
+	option.selected = "selected";
+	option.innerHTML = "Canadian Dollar";
+	widget.appendChild(option);
+	option = document.createElement("option");
+	option.value = "USD";
+	option.id = "USD";
+	option.innerHTML = "US Dollar";
+	widget.appendChild(option);
+	option = document.createElement("option");
+	option.value = "MXN";
+	option.id = "MXN"
+	option.innerHTML = "Mexican Peso";
+	widget.appendChild(option);
+	widget.addEventListener("change", changeSelectedCurrency, false);
+	if (parent) {
+		parent.appendChild(widget);
+	} else {
+		return widget;
+	}
+}
+
+/**
+ * Event handler for when the widget changes.
+ */
+function changeSelectedCurrency(evt) {
+	selectedCurrency = evt.target.value;
+}
+
+/**
+ * Sets the selected currency to the matching string and switches the widget to match.
+ */
+function setSelectedCurrency(currency) {
+	selectedCurrency = currency;
+	var currencyOpt = document.getElementById(currency);
+	if (currencyOpt) {
+		currencyOpt.selected = "selected";
+	}
+}
+
 /*  House keeping */
 function mainSetup() {
 	loadFromStorage();
