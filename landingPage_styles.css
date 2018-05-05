@@ -1,12 +1,3 @@
-@charset "utf-8";
-
-
-@font-face {
-   font-family: Speeder;
-   src: url(maxi_l_s.woff) format('woff'), 
-        url(maxi_l_s.ttf) format('truetype');
-}
-
 
 /* HTML and Body styles */
 
@@ -28,12 +19,6 @@ body {
    width: 100%;
 }
 
-body > header > p{
-	color: rgb(33, 88, 132);
-	padding: 5px;
-	font-size: 1.3em;
-}
-
 
 /* Header styles */
 
@@ -45,7 +30,7 @@ header {
 header p{
 	color: rgb(33, 88, 132);
 	padding: 5px;
-	font-size: 1.3em;
+	font-family: 'Century Gothic', sans-serif;
 }
 
 header img#mainlogoimg {
@@ -90,11 +75,12 @@ article h1 {
    text-shadow: white -2px 0px 0px, rgb(151, 151, 151) -14px 0px 8px;
    font-family: Speeder;
    font-weight: normal;
-   font-size: 1.7em;
+   font-size: 2.5em;
    font-style: oblique;
    letter-spacing: 0.03em;
    line-height: 1.2em;
    margin-bottom: 20px;
+   text-align: center;
 }
 
 article h2{
