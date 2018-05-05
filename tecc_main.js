@@ -195,6 +195,7 @@ function orderFactory() {
 			this.date = new Date(that.date);
 			delete that.date;
 			delete that.turnaround;
+			delete that.price;
 			for (var prop in that) {
 				this[prop] = that[prop];
 			}
@@ -317,7 +318,7 @@ function getWaitTime(id) {
 		totalWait += orders[i].turnaround;
 	}
 	var now = new Date();
-	var daysRemaining = Math.round((now - orders[orders.length - 1].date) / (24 * 3600 * 1000), 0);
+	var daysRemaining = (orders.length > 0) ? Math.round((now - orders[orders.length - 1].date) / (24 * 3600 * 1000), 0) : 0;
 	daysRemaining = (daysRemaining > 0) ? daysRemaining : 0; // If days remaining is negative then order time is exceeded and we don't want to count it.
 	totalWait += daysRemaining;
 	return totalWait;
@@ -327,7 +328,7 @@ function getWaitTime(id) {
  * Returns the average wait time for an order.
  */
 function getAverageWaitTime() {
-	return getWaitTime() / orders.length;
+	return (orders.length > 0) ? getWaitTime() / orders.length : BASE_TURNAROUND;
 }
 
 /*  House keeping */
