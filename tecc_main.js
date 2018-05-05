@@ -53,7 +53,7 @@ function itemFactory() {
 		toString: function () {
 			var string = this.name;
 			if (this.stock > 0) {
-				string += " (" + getCurrency(this.price) + " - " + this.turnaround + " days installation)";
+				string += " (Adds " + getCurrency(this.price) + " - " + this.turnaround + " day" + ((this.turnaround > 1) ? "s" : "") + " installation)";
 			} else {
 				string += " (Currently out of stock but expected in the next " + this.reorder + "days)";
 			}
@@ -329,6 +329,53 @@ function getWaitTime(id) {
  */
 function getAverageWaitTime() {
 	return (orders.length > 0) ? getWaitTime() / orders.length : BASE_TURNAROUND;
+}
+
+/**
+ * Fulfills an order: decreases stock accordingly and sets an id for the order and adds it to the orders array.
+ * - Returns the order id.
+ * - Throws an exception if stock would fall below zero.
+ */
+function fulfillOrder(order) {
+	for (var i = 0; i < order.items.length; i++) {
+		if (order.items[i].isBase) {
+			var item = baseItems.get(order.items[i].type, order.items[i].name);
+		} else {
+			var item = optionalItems.get(order.items[i].type, order.items[i].name);
+		}
+		if (item.stock < 1) {
+			throw "ERROR: Trying to fullfill an order without stock";
+		}
+		item.stock--;
+	}
+	var id = order.setId();
+	orders.unshift(order);
+	syncToStorage();
+	return id;
+}
+
+/**
+ * Cancels an order: Removes the selected order from the orders array and increases the stock accordingly.
+ * - Returns false if the supplied id did not exist, true if successful.
+ */
+function cancelOrder(id) {
+	var idx = getOrderIdxById(id);
+	if (idx === undefined) {
+		return false;
+	}
+	var order = orders.splice(idx, 1)[0];
+	for (var i = 0; i < order.items.length; i++) {
+		if (order.items[i].isBase) {
+			var item = baseItems.get(order.items[i].type, order.items[i].name);
+		} else {
+			var item = optionalItems.get(order.items[i].type, order.items[i].name);
+		}
+		if (item !== undefined) {
+			item.stock++;
+		}
+	}
+	syncToStorage();
+	return true;
 }
 
 /*  House keeping */
