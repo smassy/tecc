@@ -11,7 +11,7 @@
     </header>
 
     <div id="formThanks">
-            <p>Order Number 00001 has been confirmed! Thank you!</p>
+            <p>Order Number <span id="orderID"></span> has been confirmed! Thank you!</p>
     </div>
 
     <section>
@@ -64,8 +64,10 @@
     <br/>
     <footer>
             <p style="text-align: center;">Copyright PurchasePal&copy 2018</p>
-        </footer>
+    </footer>
+    <script src="tecc_main.js"></script>
     <script>
+        loadFromStorage();
         document.getElementById("nameT").innerHTML = localStorage.lnameStorage + ", " + localStorage.fnameStorage;
         document.getElementById("emailT").innerHTML = localStorage.emailStorage;
         document.getElementById("phoneT").innerHTML = localStorage.phoneStorage;
@@ -73,6 +75,7 @@
         document.getElementById("cardT").innerHTML = localStorage.cardStorage;
         document.getElementById("planT").innerHTML = localStorage.planStorage;
         document.getElementById("totalT").innerHTML = localStorage.priceStorage;
+        document.getElementById("orderID").innerHTML = lastOrderId;
     </script>
 </body>
 </html>
