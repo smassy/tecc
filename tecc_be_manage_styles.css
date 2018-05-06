@@ -110,6 +110,15 @@ th{
 	margin: 40px auto;
 }
 
+/* handle highlighting low stock and backordered items. */
+td.backorder {
+	border: solid red;
+}
+
+td.lowstock {
+	border: solid yellow;
+}
+
 /* Form Styles */
 
 form{

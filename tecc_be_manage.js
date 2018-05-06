@@ -160,6 +160,11 @@ function getRowFromItem(item, nthOfType) {
 	input.name = "stock";
 	input.value = item.stock;
 	input.addEventListener("change", manageUpdateBtn, false);
+	if (item.stock === 0) {
+		td.className = "backorder";
+	} else if (item.stock < 5) {
+		td.className = "lowstock";
+	}
 	td.appendChild(input);
 	row.appendChild(td);
 	td = document.createElement("td");
