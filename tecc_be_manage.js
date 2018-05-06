@@ -96,17 +96,6 @@ function addItem() {
 }
 
 /**
- * Runs janitorial functions on load.
-*/
-function setup() {
-	populateInventory();
-	var submitBtn = document.getElementById("isubmit");
-	if (submitBtn.addEventListener) {
-		submitBtn.addEventListener("click", addItem, false);
-	}
-}
-
-/**
  * Generates a table row from an inventory item. Requires and item and its index in its type category as argument.
 */
 function getRowFromItem(item, nthOfType) {
@@ -401,6 +390,29 @@ function moveItemDown(evt) {
 	}
 	populateInventory();
 	syncToStorage();
+}
+
+/**
+ * Crate buttons to facilitate downloading/loading/reseting data.
+*/
+function createMaintenanceLinks() {
+	var dlLink = document.getElementById("download");
+	var target = "data:text/json;charset=utf-8," + localStorage[STOR_NAME];
+	dlLink.href = target;
+	dlLink.setAttribute("download", "tecc_data.json");
+	dlLink.innerHTML = "Download data";
+}
+
+/**
+ * Runs janitorial functions on load.
+*/
+function setup() {
+	populateInventory();
+	var submitBtn = document.getElementById("isubmit");
+	if (submitBtn.addEventListener) {
+		submitBtn.addEventListener("click", addItem, false);
+	}
+	createMaintenanceLinks();
 }
 
 if (window.addEventListener) {
