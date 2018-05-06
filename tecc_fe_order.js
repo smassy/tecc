@@ -221,7 +221,7 @@ function refresh() {
  * Janitorial function to carry out necessary house-keeping on load.
  */
 function setup() {
-	getCurrencyWidget(document.getElementsByTagName("header")[0]);
+	getCurrencyWidget(document.getElementById("currencyWidget"));
 	document.getElementById("currencyWidget").addEventListener("change", refresh, false);	
 	order = orderFactory();
 	refresh();
