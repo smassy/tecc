@@ -3,11 +3,7 @@
 
 var formValidity = true;
 var multipleFee = 1.04;
-var totalCost = orderFactory().price;
-// var totalCost = order.price; This will not work
-// var totalCost = orders.price;
-// var totalCost = orders.price();
-// var totalCost = order.price();
+var currency = "CAD";
 
 //Corrects the state/province select option depending
 //on which country is selected
@@ -28,6 +24,7 @@ function correctCountry()
         ziplabel.innerHTML = "Postal Code: "
 
         addOptions(can_province, select);
+        currency = "CAD";
     }
     else
     {
@@ -37,10 +34,12 @@ function correctCountry()
         if(country === "usa")
         {
             addOptions(usa_state, select);
+            currency = "USD";
         }
         else
         {
             addOptions(mex_state, select);
+            currency = "MXN";
         }
     } 
     
@@ -75,21 +74,25 @@ function validateCardType()
 	{
         document.getElementById("visa").checked = "checked";
         localStorage.setItem("cardStorage", cardNumValue);
+        syncToStorage();
 	} 
 	else if (mc.test(cardNumValue)) 
 	{
         document.getElementById("mc").checked = "checked";
         localStorage.setItem("cardStorage", cardNumValue);
+        syncToStorage();
 	} 
 	else if (discover.test(cardNumValue)) 
 	{
         document.getElementById("discover").checked = "checked";
         localStorage.setItem("cardStorage", cardNumValue);
+        syncToStorage();
 	}
 	else if (amex.test(cardNumValue)) 
 	{
         document.getElementById("amex").checked = "checked";
         localStorage.setItem("cardStorage", cardNumValue);
+        syncToStorage();
     }
     else
     {
@@ -101,7 +104,7 @@ function validateCardType()
     }
 }
 
-//Checks to see if user has entered a first and last name
+//Checks to see if user has entered a first name
 function validateFirstName()
 {
     var validity = true;
@@ -124,9 +127,11 @@ function validateFirstName()
         fnameError.style.display = "none";
         fnameError.innerHTML = "";
         localStorage.setItem("fnameStorage", fname);
+        syncToStorage();
     }
 }
 
+//Checks to see if user has entered a last name
 function validateLastName()
 {        
     var validity = true;
@@ -149,6 +154,7 @@ function validateLastName()
         lnameError.style.display = "none";
         lnameError.innerHTML = "";
         localStorage.setItem("lnameStorage", lname);
+        syncToStorage();
     }
 
 }
@@ -176,6 +182,7 @@ function validateEmail()
         error.style.display = "none";
         emailInput.value = emailInput.value.toLowerCase();
         localStorage.setItem("emailStorage", emailValue);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -187,6 +194,7 @@ function validateEmail()
     }
 }
 
+//validates a phone number
 function validatePhone()
 {
     var phoneInput = document.getElementById("phonebox");
@@ -207,6 +215,7 @@ function validatePhone()
         error.innerHTML = "";
         error.style.display = "none";
         localStorage.setItem("phoneStorage", phoneValue);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -238,6 +247,7 @@ function validateAddress()
         error.innerHTML = "";
         error.style.display = "none";
         localStorage.setItem("addressStorage", addrValue);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -275,6 +285,7 @@ function validateState()
         stateInput.style.background = "white";
         stateInput.style.border = "";
         localStorage.setItem("stateStorage", state);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -306,6 +317,7 @@ function validateCity()
         error.innerHTML = "";
         error.style.display = "none";
         localStorage.setItem("cityStorage", cityValue);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -356,6 +368,7 @@ function validateZip()
         error.innerHTML = "";
         error.style.display = "none";
         localStorage.setItem("zipStorage", zipInput.value);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -387,6 +400,7 @@ function validateCvv()
         error.innerHTML = "";
         error.style.display = "none";
         localStorage.setItem("cvvStorage", cvv);
+        syncToStorage();
     }
     catch(msg)
     {
@@ -398,6 +412,8 @@ function validateCvv()
     }
 }
 
+//Checks to see if all elements are valid. Form will not submit if
+//a single element is invalid
 function validateForm(evt)
 {
     if (evt.preventDefault)
@@ -443,14 +459,20 @@ function displayCosts()
     var taxElement = document.getElementById("tax");
     var totalElement = document.getElementById("totalWithTax");
 
+    loadFromStorage();
+    var order = orders[getOrderIdxById(lastOrderId)];
+    var totalCost = order.price;
+
+    setSelectedCurrency(currency);
     var temp = calculatePrice(totalCost, multipleFee);
 
     beforeTaxElement.innerHTML = temp.toFixed(2);
     taxElement.innerHTML = (getTax() * temp).toFixed(2);
     var total = (temp + (getTax() * temp)).toFixed(2);
-    totalElement.innerHTML = total;
+    totalElement.innerHTML = getCurrency(total);
 
     localStorage.setItem("priceStorage", total);
+    syncToStorage();
 }
 
 //Calculates total price depending if user selects "multiple payments"
@@ -647,8 +669,8 @@ function createEventListeners()
 //Used to set up the script
 function setUpPage()
 {
-    loadFromStorage();
-    syncToStorage();
+    fetchCurrencyRates();
+    setCurrencyRates();
     displayCosts();
     correctCountry();
     createEventListeners();

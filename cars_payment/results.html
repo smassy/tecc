@@ -37,7 +37,7 @@
                                    <td id="phoneT"></td>
                                 </tr>
                                 <tr>
-                                    <td>Address: </td> <!--address, city, state, country, zip-->
+                                    <td>Address: </td>
                                     <td id="addressT"></td>
                                 </tr>
                                 <tr>
@@ -74,8 +74,9 @@
         document.getElementById("addressT").innerHTML = localStorage.addressStorage;
         document.getElementById("cardT").innerHTML = localStorage.cardStorage;
         document.getElementById("planT").innerHTML = localStorage.planStorage;
-        document.getElementById("totalT").innerHTML = localStorage.priceStorage;
+        document.getElementById("totalT").innerHTML = getCurrency(localStorage.priceStorage);
         document.getElementById("orderID").innerHTML = lastOrderId;
+        syncToStorage();
     </script>
 </body>
 </html>
