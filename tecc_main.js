@@ -249,11 +249,11 @@ function checkStorage() {
 }
 
 /**
- * Retrieves information from storage if it is present; initialises to sane values if not.
+ * Loads the supplied JSON data into the system; if none is provided, create a clean system.
  */
-function loadFromStorage() {
-	if (localStorage[STOR_NAME] !== undefined) {
-		var storageSpace = JSON.parse(localStorage.getItem(STOR_NAME));
+function loadData(data) {
+	if (data !== undefined && data !== null) {
+		var storageSpace = JSON.parse(data);
 		orders = [];
 		for (var i = 0; i < storageSpace.orders.length; i++) {
 			var newOrder = orderFactory();
@@ -266,12 +266,20 @@ function loadFromStorage() {
 		optionalItems.load(storageSpace.optionalItems);
 		lastOrderId = storageSpace.lastOrderId;
 	} else {
+		console.log("Received undefined: generating clean system.");
 		orders = [];
 		baseItems = itemGroupFactory();
 		optionalItems = itemGroupFactory();
 		lastOrderId = 0;
 		syncToStorage();
 	}
+}
+
+/**
+ * Retrieves information from storage if it is present; initialises to sane values if not.
+ */
+function loadFromStorage() {
+	loadData(localStorage.getItem(STOR_NAME));
 }
 
 /**
