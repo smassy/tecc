@@ -56,7 +56,7 @@ function itemFactory() {
 			if (this.stock > 0) {
 				string += " (Adds " + getCurrency(this.price) + " - " + this.turnaround + " day" + ((this.turnaround > 1) ? "s" : "") + " installation)";
 			} else {
-				string += " (Currently out of stock but expected in the next " + this.reorder + "days)";
+				string += " (Currently out of stock but expected in the next " + this.reorder + " days)";
 			}
 			return string;
 		},

@@ -65,7 +65,7 @@ function generateOrderForm() {
 	baseFieldset.appendChild(legend);
 	for (var i = 0; i < baseItems.types.length; i++) {
 		var subFieldset = document.createElement("fieldset");
-		subFieldset.id = "base-" + baseItems.types[i] + "-" + i;
+		subFieldset.id = "base-" + baseItems.types[i];
 		legend = document.createElement("legend");
 		legend.innerHTML = baseItems.types[i].replace(/(_|-)/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase() });
 		subFieldset.appendChild(legend);
@@ -76,7 +76,7 @@ function generateOrderForm() {
 			var id = baseItems.types[i] + "-" + j;
 			input = document.createElement("input");
 			label = document.createElement("label");
-			label.for = id;
+			label.htmlFor = id;
 			label.innerHTML = baseItems[baseItems.types[i]][j].toString();
 			input.type = "radio";
 			input.name = baseItems.types[i];
@@ -106,7 +106,7 @@ function generateOrderForm() {
 			var id = optionalItems.types[i] + "-0";
 			input = document.createElement("input");
 			label = document.createElement("label");
-			label.for = id;
+			label.htmlFor = id;
 			label.innerHTML = optionalItems[optionalItems.types[i]][0].toString();
 			input.type = "checkbox";
 			input.id = id;
@@ -133,7 +133,7 @@ function generateOrderForm() {
 			input.id = id;
 			input.checked = true;
 			label = document.createElement("label");
-			label.for = id;
+			label.htmlFor = id;
 			label.innerHTML = "None";
 			optionsDiv.appendChild(input);
 			optionsDiv.appendChild(label);
@@ -141,7 +141,7 @@ function generateOrderForm() {
 				input = document.createElement("input");
 				label = document.createElement("label");
 				id = optionalItems.types[i] + "-" + j;
-				label.for = id;
+				label.htmlFor = id;
 				label.innerHTML = optionalItems[optionalItems.types[i]][j].toString();
 				input.type = "radio";
 				input.name = optionalItems.types[i];
