@@ -90,6 +90,7 @@ function addItem() {
 		msg.append(successMsg);
 		syncToStorage();
 		document.getElementById("newitem").reset();
+		document.querySelector("form#newitem input").focus();
 		populateInventory();
 	}
 	msg.style.display = "block";
