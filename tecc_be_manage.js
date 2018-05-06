@@ -9,6 +9,8 @@
 
 'use strict';
 
+var sampleData; // String to hold the JSON for sample data.
+
 /**
  * Validates the new item form and, if successful, adds the item. Prints useful feedback messages along the way.
  */
@@ -407,6 +409,33 @@ function createMaintenanceLinks() {
 	dlLink.href = target;
 	dlLink.setAttribute("download", "tecc_data.json");
 	dlLink.innerHTML = "Download data";
+	var loadBtn = document.getElementById("load");
+	loadBtn.innerHTML = "Load Sample Data";
+	loadBtn.addEventListener("click", loadSampleData, false);
+	var resetBtn = document.getElementById("reset");
+	resetBtn.innerHTML = "RESET SYSTEM";
+	resetBtn.addEventListener("click", resetSystem, false);
+}
+
+/**
+ * Load the data in the frame into a string which can be used to set sample data.
+ */
+function loadSampleData() {
+	alert("This loads the sample data to the system but doesn't sync it to storage to avoid accidental overwrites; click sync or perform any action in the interface to make this permanent.");
+	var dataFrame = document.getElementById("dataFrame");
+	sampleData = dataFrame.contentWindow.document.body.childNodes[0].innerHTML;
+	loadData(sampleData);
+	populateInventory();
+}
+
+/**
+ * Return system to fresh/empty state.
+ */
+function resetSystem() {
+	alert("This resets the system to a fresh state but doesn't erase the data from localStorage; click Sync or performing any action in the interface to overwrite the data.");
+	delete localStorage[STOR_NAME];
+	loadData();
+	populateInventory();
 }
 
 /**

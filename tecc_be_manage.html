@@ -49,8 +49,10 @@
 			</div>
 			<div id="msg"><ul></ul></div>
 		</article>
-		<footer><a id="download"></a><a id="load"></a><a id="reset"></a></footer>
+		<footer><a id="download"></a><button id="load"></button><button id="reset"></button><button onclick="syncToStorage()">SYNC</button></footer>
 		<script src="tecc_main.js"></script>
 				<script src="tecc_be_manage.js"></script>
+		<!-- This is use to load the sample data -->
+		<iframe id="dataFrame" src="tecc_data.json" style="display:none;"></iframe>
 	</body>
 </html>	
