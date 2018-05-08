@@ -15,6 +15,7 @@
 			<h1>Manage Options and Inventory</h1>
 			<nav>
 				<ul>
+					<li><a href="tecc_be_manage.html">Manage</a></li>
 					<li><a href="tecc_be_dash.html">Dashboard</a></li>
 					<li><a href="queue">Orders</a></li>
 					<li><a href="landingPage.html">Front-end</a></li>
@@ -28,30 +29,30 @@
 			<div id="optionalItems"></div>
 			<div>
 				<h2>Add an item</h2>
-			<form id="newitem">
-				<label for="iname">Name</label>
-				<input type="text" id="iname" name="name" /><br />
-				<label for="itype">Type</label>
-				<input type="text" name="type" id="itype" />
-				<label for="ibase">Base item</label>
-				<input type="checkbox" id="ibase" name="base" value="true" /><br />
-				<label for="iprice">Price</label>
-				<input type="number" name="price" id="iprice" size="10" />
-				<label for="iturnaround">Number of days to assemble</label>
-				<input type="number" name="turnaround" id="iturnaround" min="0" size="2" /><br />
-				<label for="ireorder">Number of days to re-order</label>
-				<input type="number" name="reorder" id="ireorder" min="0" size="2" />
-				<label for="istock">Number currently in stock</label>
-				<input type="number" name="stock" id="istock" size="5" /><br />
-				<input type="button" id="isubmit" value="Save">
-				<input type="reset" value="Clear" />
-			</form>
+				<form id="newitem">
+					<label for="iname">Name</label>
+					<input type="text" id="iname" name="name" /><br />
+					<label for="itype">Type</label>
+					<input type="text" name="type" id="itype" />
+					<label for="ibase">Base item</label>
+					<input type="checkbox" id="ibase" name="base" value="true" /><br />
+					<label for="iprice">Price</label>
+					<input type="number" name="price" id="iprice" size="10" />
+					<label for="iturnaround">Number of days to assemble</label>
+					<input type="number" name="turnaround" id="iturnaround" min="0" size="2" /><br />
+					<label for="ireorder">Number of days to re-order</label>
+					<input type="number" name="reorder" id="ireorder" min="0" size="2" />
+					<label for="istock">Number currently in stock</label>
+					<input type="number" name="stock" id="istock" size="5" /><br />
+					<input type="button" id="isubmit" value="Save">
+					<input type="reset" value="Clear" />
+				</form>
 			</div>
 			<div id="msg"><ul></ul></div>
 		</article>
 		<footer><a id="download"></a><button id="load"></button><button id="reset"></button><button onclick="syncToStorage()">SYNC</button></footer>
 		<script src="tecc_main.js"></script>
-				<script src="tecc_be_manage.js"></script>
+		<script src="tecc_be_manage.js"></script>
 		<!-- This is use to load the sample data -->
 		<iframe id="dataFrame" src="tecc_data.json" style="display:none;"></iframe>
 	</body>

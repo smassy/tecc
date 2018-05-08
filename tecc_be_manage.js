@@ -165,7 +165,7 @@ function getRowFromItem(item, nthOfType) {
 	input.addEventListener("change", manageUpdateBtn, false);
 	if (item.stock === 0) {
 		td.className = "backorder";
-	} else if (item.stock < 5) {
+	} else if (item.stock < LOW_STOCK_THRESHOLD) {
 		td.className = "lowstock";
 	}
 	td.appendChild(input);
