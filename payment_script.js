@@ -487,10 +487,12 @@ function calculatePrice(cost, fee)
     if(multiple.checked)
     {
         cost = cost * fee;
+        document.getElementById("multipleLabel").innerHTML = "Multiple Payments (pay over 24 months with a 4% fee)";
         localStorage.setItem("planStorage", "Multiple Payments");
     }
     else
     {
+        document.getElementById("multipleLabel").innerHTML = "Multiple Payments";
         localStorage.setItem("planStorage", "Single Payment");
     }
 
