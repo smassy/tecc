@@ -43,7 +43,7 @@ function refreshOrderSummary() {
 	li = document.createElement("li");
 	var delivDate = new Date();
 	delivDate.setDate(delivDate.getDate() + getWaitTime() + order.turnaround);
-	li.innerHTML = "Expected delivery date: " + delivDate.toLocaleString();
+	li.innerHTML = "Expected delivery date: " + delivDate.toLocaleString().slice(0, delivDate.toLocaleString().indexOf(","));
 	ul.appendChild(li);
 	div.appendChild(ul);
 }
