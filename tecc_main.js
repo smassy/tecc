@@ -323,11 +323,11 @@ function getWaitTime(id) {
 		idx = 0;
 	}
 	var totalWait = 0;
-	for (var i = orders.length - 1; i > idx - 1; i--) {
+	for (var i = orders.length - 2; i > idx - 1; i--) {
 		totalWait += orders[i].turnaround;
 	}
 	var now = new Date();
-	var daysRemaining = (orders.length > 0) ? Math.round((now - orders[orders.length - 1].date) / (24 * 3600 * 1000), 0) : 0;
+	var daysRemaining = (orders.length > 0) ? (orders[orders.length - 1].turnaround - Math.round((now - orders[orders.length - 1].date) / (24 * 3600 * 1000), 0)) : 0;
 	daysRemaining = (daysRemaining > 0) ? daysRemaining : 0; // If days remaining is negative then order time is exceeded and we don't want to count it.
 	totalWait += daysRemaining;
 	return totalWait;
