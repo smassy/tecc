@@ -341,6 +341,20 @@ function getAverageWaitTime() {
 }
 
 /**
+ * Appends a paragraph with the system summary to the provided element.
+ */
+function showSystemSummary(element) {
+	var p = document.getElementById("systemSummary");
+	if (p) {
+		element.removeChild(p);
+	}
+	p = document.createElement("p");
+	p.id = "systemSummary";
+	p.innerHTML = "There are currently " + orders.length + " orders in the queue with a total combined fulfillment time of " + getWaitTime() + " days for an average of " + getAverageWaitTime() + " days per order.";
+	element.appendChild(p);
+}
+
+/**
  * Fulfills an order: decreases stock accordingly and sets an id for the order and adds it to the orders array.
  * - Returns the order id.
  * - Throws an exception if stock would fall below zero.

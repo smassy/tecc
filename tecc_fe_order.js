@@ -11,20 +11,6 @@
 var order; //  Order in process
 
 /**
- * Fills up the order overview
- */
-function populateWaitTimeInfo() {
-	var div = document.getElementById("waitTimeInfo");
-	var p = div.getElementsByTagName("p");
-	if (p.length > 0) {
-		div.removeChild(p[0]);
-	}
-	p = document.createElement("p");
-	p.innerHTML = "There are currently " + orders.length + " orders in the queue with a total combined fulfillment time of " + getWaitTime() + " days for an average of " + getAverageWaitTime() + " days per order.";
-	div.appendChild(p);
-}
-
-/**
  * Updates the information in the orderSummary div.
  */
 function refreshOrderSummary() {
@@ -213,7 +199,7 @@ function handleSubmission(evt) {
  * Calls a group of functions to carry out page refresh.
 */
 function refresh() {
-	populateWaitTimeInfo();
+	showSystemSummary(document.getElementById("waitTimeInfo"));
 	generateOrderForm();
 	compileOrder();
 	refreshOrderSummary();
