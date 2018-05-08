@@ -11,6 +11,7 @@
 var storage = checkStorage(); // If the browser does not support webstorage then we bail as nothing will work.
 const STOR_NAME = "TECC";
 const BASE_TURNAROUND = 3; // Minimum # of days to put car together sans additional assembly.
+const LOW_STOCK_THRESHOLD = 5;
 var orders;
 var baseItems;
 var optionalItems;
@@ -300,6 +301,11 @@ function syncToStorage() {
  * Returns the index of an order in the array, given its id; returns undefined if id is not found.
 */
 function getOrderIdxById(id) {
+	if (isNaN(id)) {
+		throw NaN;
+	} else {
+		id = Number(id);
+	}
 	var idx = undefined;
 	for (var i = 0; i < orders.length; i++) {
 		if (orders[i].id === id) {
