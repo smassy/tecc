@@ -195,16 +195,18 @@ function compileOrder() {
 /**
  * Event handler for the "Proceed to checkout" button. Calls on order fulfillment and moves on to the checkout info page.
  */
-function handleSubmission() {
+function handleSubmission(evt) {
+	evt.preventDefault();
 	var oId;
 	try {
-		id = fulfillOrder(order);
+		oId = fulfillOrder(order);
 	} catch (e) {
 		alert(e);
 		return false;
 	}
-	//window.location
-	return;
+	var loc = String(window.location);
+	loc = loc.slice(0, loc.lastIndexOf("/") + 1) + "payment.html?o_id=" + oId;
+	window.location = loc;
 }
 
 /**

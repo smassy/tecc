@@ -1,6 +1,8 @@
 
 "use strict";
 
+var orderId = Number(location.search.slice(location.search.lastIndexOf("=") + 1)); // Fetch orderId from query string.
+var order;
 var formValidity = true;
 var multipleFee = 1.04;
 var currency = "CAD";
@@ -442,8 +444,8 @@ function validateForm(evt)
 	{
 		document.getElementById("formError").innerHTML = "";
         document.getElementById("formError").style.display = "none";
-        localStorage.setItem("orderId", lastOrderId);
-        //var order = orders[getOrderIdxById(lastOrderId)];
+//        localStorage.setItem("orderId", orderId);
+        //var order = orders[getOrderIdxById(orderId)];
 		document.getElementsByTagName("form")[0].submit();
 	}
 	else
@@ -462,9 +464,8 @@ function displayCosts()
     var totalElement = document.getElementById("totalWithTax");
 
     loadFromStorage();
-    var order = orders[getOrderIdxById(lastOrderId)];
+//    var order = orders[getOrderIdxById(orderId)];
     var totalCost = order.price;
-
     setSelectedCurrency(currency);
     var temp = calculatePrice(totalCost, multipleFee);
 
@@ -540,7 +541,7 @@ function getTax()
 
 function cancelCurrentOrder()
 {
-    cancelOrder(getOrderIdxById(lastOrderId));
+    cancelOrder(orderId);
     syncToStorage();
     window.history.back();
 }
@@ -684,9 +685,11 @@ function createEventListeners()
 //Used to set up the script
 function setUpPage()
 {
-    localStorage.setItem("orderId", getOrderIdxById(lastOrderId));
-    fetchCurrencyRates();
-    setCurrencyRates();
+	order = orders[getOrderIdxById(orderId)];
+	document.getElementById("o_id").value = orderId;
+    localStorage.setItem("orderId", getOrderIdxById(orderId));
+//    fetchCurrencyRates();
+//    setCurrencyRates();
     displayCosts();
     correctCountry();
     createEventListeners();
