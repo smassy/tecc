@@ -180,13 +180,13 @@ function compileOrder() {
 	var baseInputs = document.querySelectorAll("fieldset#baseItems input.choice");
 	for (var i = 0; i < baseInputs.length; i++) {
 		if (baseInputs[i].checked) {
-			order.items.push(baseItems[baseInputs[i].name][baseInputs[i].value]);
+			order.items.push(baseItems[baseInputs[i].name][baseInputs[i].value].toOrderItem());
 		}
 	}
 	var optionalInputs = document.querySelectorAll("fieldset#optionalItems input.choice");
 	for (var i = 0; i < optionalInputs.length; i++) {
 		if (optionalInputs[i].checked && optionalInputs[i].value !== "None") {
-			order.items.push(optionalItems[optionalInputs[i].name][optionalInputs[i].value]);
+			order.items.push(optionalItems[optionalInputs[i].name][optionalInputs[i].value].toOrderItem());
 		}
 	}
 	refreshOrderSummary();
