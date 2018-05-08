@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!--
+	  Internet-II Project
+
+      
+      Author : Patel, Parimal. 
+	  Student-ID : 1586498
+	  Course : Internet-II
+	  Section : 2
+	  Date : 02/05/2018
+	  Electric Car Company
+
+      Filename: orderConfirmation.html
+   -->
+   <meta charset="utf-8" />
+   <title>Order Confirmation</title>
+   <link rel="stylesheet" href="orderConfirmation_styles.css" />
+</head>
+
+<body>
+   <header>
+      <h1>Order Confirmation </h1>
+   </header>
+	
+   <article>
+      <h2>Your order has been submitted!</h2>
+		<section>
+            <div class="info">
+                <fieldset>
+                    <legend>Payment Receipt</legend>
+                    <table>
+                            <colgroup>
+                                <col class="label" />
+                                <col class="amount" />
+                            </colgroup>
+                            <tbody>
+								<tr>
+                                   <td>Order ID: </td>
+                                   <td id="orderidT"></td>
+                                </tr>
+                                <tr>
+                                   <td>Name: </td>
+                                   <td id="nameT"></td>
+                                </tr>
+                                <tr>
+                                   <td>Email: </td>
+                                   <td id="emailT"></td>
+                                </tr>
+                                <tr>
+                                   <td>Phone Number: </td>
+                                   <td id="phoneT"></td>
+                                </tr>
+                                <tr>
+                                    <td>Address: </td>
+                                    <td id="addressT"></td>
+                                </tr>
+                                <tr>
+                                    <td>Card Number: </td>
+                                    <td id="cardT"></td>
+                                </tr>
+                                <tr>
+                                    <td>Plan: </td>
+                                    <td id="planT"></td>
+                                </tr>
+								<tr>
+                                    <td>Item Name: </td>
+                                    <td id="itemnameT"></td>
+                                </tr>
+								<tr>
+                                    <td>Type: </td>
+                                    <td id="typeT"></td>
+                                </tr>
+								<tr>
+                                    <td>Estimated Delivery Date: </td>
+                                    <td id="eddT"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; font-size: 20px;">Total: </td>
+                                    <td id="totalT" style="font-weight: bold; font-size: 20px;"></td>
+                                </tr>
+                             </tbody>
+                        </table>
+                        <br/>
+                        <div id="buttonDiv">
+                            <button onclick="href='landingPage.html'">Return To Home Page</button>
+                        </div>
+                </fieldset>
+            </div>
+    </section>
+   </article>
+<script src="tecc_main.js"></script>
+<script src="orderConfirmation.js"></script>
+</body>
+</html>
