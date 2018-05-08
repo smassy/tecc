@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--
+	  * Internet 2 Final Project
+	  * The Electric Car Company
+	  * Authors: Carvalho-Dagenais, Matthew; Massy, sebastien; Patel, Parimal
+		-->
+		<meta charset="utf-8" />
+		<title>TECC Back-end - Dashboard</title>
+		<link type="text/css" rel="stylesheet" href="tecc_be_dash_styles.css" />
+	</head>
+	<body>
+		<header>
+			<h1>At A Glance</h1>
+			<nav>
+				<ul>
+					<li><a href="tecc_be_dash.html">Dashboard</a></li>
+					<li><a href="tecc_be_manage.html">Manage</a></li>
+					<li><a href="queue">Orders</a></li>
+					<li><a href="landingPage.html">Front-end</a></li>
+				</ul>
+			</nav>
+		</header>
+		<article>
+			<div id="urgentMsg"><h2>WARNING</h2><ul></ul></div>
+			<div id="summary"></div>
+			<div id="nextOrder">
+				<table>
+					<caption>Next Order To Fulfill</caption>
+					<thead>
+						<tr>
+						<th>ID</th>
+						<th>Ordered On</th>
+						<th>Turnaround</th>
+						<th>Days Remaining</th>
+						<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td id="o_id"></td>
+						<td id="o_date"></td>
+						<td id="o_turnaround"></td>
+						<td id="o_time"></td>
+						<td><a href="queue">View</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="lowInventory">
+			<table>
+				<caption>Backorder and Low Stock Items</caption>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Group</th>
+						<th>Reorder Time</th>
+						<th>Stock</th>
+				</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<a href="tecc_be_manage.html">Manage Inventory</a>
+			</div>
+		</article>
+		<script src="tecc_main.js"></script>
+		<script src="tecc_be_dash.js"></script>
+	</body>
+</html>	
