@@ -1,8 +1,6 @@
 
 "use strict";
 
-var orderId = Number(location.search.slice(location.search.lastIndexOf("=") + 1)); // Fetch orderId from query string.
-var order;
 var formValidity = true;
 var multipleFee = 1.04;
 var currency = "CAD";
@@ -444,8 +442,8 @@ function validateForm(evt)
 	{
 		document.getElementById("formError").innerHTML = "";
         document.getElementById("formError").style.display = "none";
-//        localStorage.setItem("orderId", orderId);
-        //var order = orders[getOrderIdxById(orderId)];
+        localStorage.setItem("orderId", lastOrderId);
+        //var order = orders[getOrderIdxById(lastOrderId)];
 		document.getElementsByTagName("form")[0].submit();
 	}
 	else
@@ -464,8 +462,9 @@ function displayCosts()
     var totalElement = document.getElementById("totalWithTax");
 
     loadFromStorage();
-//    var order = orders[getOrderIdxById(orderId)];
+    var order = orders[getOrderIdxById(lastOrderId)];
     var totalCost = order.price;
+
     setSelectedCurrency(currency);
     var temp = calculatePrice(totalCost, multipleFee);
 
@@ -487,10 +486,12 @@ function calculatePrice(cost, fee)
     if(multiple.checked)
     {
         cost = cost * fee;
+        document.getElementById("multipleLabel").innerHTML = "Multiple Payments (pay over 24 months with a 4% fee)";
         localStorage.setItem("planStorage", "Multiple Payments");
     }
     else
     {
+        document.getElementById("multipleLabel").innerHTML = "Multiple Payments";
         localStorage.setItem("planStorage", "Single Payment");
     }
 
@@ -541,7 +542,7 @@ function getTax()
 
 function cancelCurrentOrder()
 {
-    cancelOrder(orderId);
+    cancelOrder(getOrderIdxById(lastOrderId));
     syncToStorage();
     window.history.back();
 }
@@ -685,11 +686,9 @@ function createEventListeners()
 //Used to set up the script
 function setUpPage()
 {
-	order = orders[getOrderIdxById(orderId)];
-	document.getElementById("o_id").value = orderId;
-    localStorage.setItem("orderId", getOrderIdxById(orderId));
-//    fetchCurrencyRates();
-//    setCurrencyRates();
+    localStorage.setItem("orderId", getOrderIdxById(lastOrderId));
+    fetchCurrencyRates();
+    setCurrencyRates();
     displayCosts();
     correctCountry();
     createEventListeners();
