@@ -171,6 +171,27 @@ td button{
    width: 60px;
 }
 
+/* Footer Styles */
+footer a{
+   background-color: rgb(33, 88, 132);
+   color: rgb(229, 228, 226);
+   border-radius: 20px;
+   display: inline;
+   font-size: 1em;
+   width: 10px;
+   padding: 3px;
+}
+
+footer button{
+   background-color: rgb(33, 88, 132);
+   color: rgb(229, 228, 226);
+   border-radius: 20px;
+   display: inline;
+   font-size: 1em;
+   height: 30px;
+   width: 150px;
+}
+
 
 
 
