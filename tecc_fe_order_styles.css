@@ -78,3 +78,14 @@ article p{
     margin-bottom: 30px;
     font-family: 'Century Gothic', sans-serif;
 }
+
+/* Button Styles */
+button{
+	background-color: rgb(33, 88, 132);
+   color: rgb(229, 228, 226);
+   border-radius: 20px;
+   display: inline;
+   font-size: 0.8em;
+   height: 30px;
+   width: 150px;
+}
