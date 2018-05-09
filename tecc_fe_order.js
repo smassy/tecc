@@ -183,6 +183,7 @@ function compileOrder() {
  */
 function handleSubmission(evt) {
 	evt.preventDefault();
+	loadFromStorage() // Sync current state to whatever may have happened in background (cancelled orders)
 	var oId;
 	try {
 		oId = fulfillOrder(order);
