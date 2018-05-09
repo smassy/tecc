@@ -43,7 +43,7 @@ function writeInfo(id)
     for(var i = 0; i < orders[id].items.length; i++)
     {
         var item = document.createElement('li');
-        item.innerHTML = orders[id].items[i].name;
+        item.innerHTML = orders[id].items[i].name + "/" + orders[id].items[i].type;
 
         if(orders[id].items[i].isBase == true)
         {
