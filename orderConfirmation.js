@@ -1,8 +1,8 @@
 "use strict";
 // global variables
-var orderId = (location.search.slice(location.search.indexOf("=") + 1));
 var order;
 
+// Parses the data into the table
 function parseData(){
 	var locationData = decodeURIComponent(location.search);
 	var locationArray = [];
@@ -21,31 +21,14 @@ function parseData(){
 		document.getElementById("cardT").innerHTML = locationArray[i + 10];
 		document.getElementById("planT").innerHTML = locationArray[i + 15];
 		document.getElementById("totalT").innerHTML = getCurrency(localStorage.priceStorage);
-		document.getElementById("itemnameT").innerHTML = orders.item[name];
-		document.getElementById("typeT").innerHTML = orders.item[type];
+		document.getElementById("itemnameT").innerHTML = "";
+		document.getElementById("itemtypeT").innerHTML = "";
 	}
 	syncToStorage();
 }
 
-function getEstimatedDeliveryDate(){
-	var delivDate = new Date();
-	//setDate(delivDate.getDate() + getWaitTime() + order.turnaround);
-	document.getElementById("eddT").innerHTML = delivDate.toLocaleString();
-}
-
-
-function createEventListeners(){
-	var dateField = document.getElementById("eddT");
-	if (dateField.addEventListener) {
-		dateField.addEventListener("load", getEstimatedDeliveryDate(), false);
-	}
-}
-
-
 function setUpPage(){
 	loadFromStorage();
-	order = orders[getOrderIdxById(Number(orderId))];
-	createEventListeners();
 	parseData();
 }
 
