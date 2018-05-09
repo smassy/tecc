@@ -59,7 +59,7 @@ function writeInfo(id)
 
     //Estimated wait time
     newDiv.appendChild(document.createElement('br'));
-    newDiv.appendChild(document.createTextNode("Estimated Wait Time: " + getWaitTime(id) + " days"));
+    newDiv.appendChild(document.createTextNode("Estimated Wait Time: " + getWaitTime(orders[id].id) + " days"));
     newDiv.appendChild(document.createElement('br'));
 
     //Create a complete button
