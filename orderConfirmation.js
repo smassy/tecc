@@ -1,26 +1,35 @@
 "use strict";
 // global variables
+var orderId = (location.search.slice(location.search.indexOf("=") + 1));
 var order;
 
 function parseData(){
-	loadFromStorage();
-	/*document.getElementById("orderidT").value = order;
-    document.getElementById("nameT").innerHTML = localStorage.lnameStorage + ", " + localStorage.fnameStorage;
-    document.getElementById("emailT").innerHTML = localStorage.emailStorage;
-    document.getElementById("phoneT").innerHTML = localStorage.phoneStorage;
-    document.getElementById("addressT").innerHTML = localStorage.addressStorage;
-    document.getElementById("cardT").innerHTML = localStorage.cardStorage;
-    document.getElementById("planT").innerHTML = localStorage.planStorage;
-    document.getElementById("totalT").innerHTML = getCurrency(localStorage.priceStorage);
-	document.getElementById("itemnameT").innerHTML = localStorage.itemNameStorage;
-	document.getElementById("typeT").innerHTML = localStorage.itemTypeStorage;
-	*/
+	var locationData = decodeURIComponent(location.search);
+	var locationArray = [];
+	locationData = locationData.substring(1, locationData.length);
+	while (locationData.indexOf("+") !== -1) {
+		locationData = locationData.replace("+", " ");
+	}
+	locationData = decodeURIComponent(locationData);
+	locationArray = locationData.split("&");
+	for (var i = 0; i < locationArray.length; i++) {
+		document.getElementById("orderidT").innerHTML = locationArray[i];
+		document.getElementById("nameT").innerHTML = locationArray[i + 1] + " " + locationArray[i + 2] ;
+		document.getElementById("emailT").innerHTML = locationArray[i + 3];
+		document.getElementById("phoneT").innerHTML = locationArray[i + 4];
+		document.getElementById("addressT").innerHTML = locationArray[i + 5];
+		document.getElementById("cardT").innerHTML = locationArray[i + 10];
+		document.getElementById("planT").innerHTML = locationArray[i + 15];
+		document.getElementById("totalT").innerHTML = getCurrency(localStorage.priceStorage);
+		document.getElementById("itemnameT").innerHTML = orders.item[name];
+		document.getElementById("typeT").innerHTML = orders.item[type];
+	}
 	syncToStorage();
 }
 
 function getEstimatedDeliveryDate(){
 	var delivDate = new Date();
-	//.setDate(delivDate.getDate() + getWaitTime() + order.turnaround);
+	//setDate(delivDate.getDate() + getWaitTime() + order.turnaround);
 	document.getElementById("eddT").innerHTML = delivDate.toLocaleString();
 }
 
@@ -35,7 +44,7 @@ function createEventListeners(){
 
 function setUpPage(){
 	loadFromStorage();
-	order = orders[getOrderIdxById(Number(o_id))];
+	order = orders[getOrderIdxById(Number(orderId))];
 	createEventListeners();
 	parseData();
 }
