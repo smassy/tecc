@@ -1,6 +1,5 @@
 "use strict";
-// global variables
-var order;
+
 
 // Parses the data into the table
 function parseData(){
@@ -21,15 +20,26 @@ function parseData(){
 		document.getElementById("cardT").innerHTML = locationArray[i + 10];
 		document.getElementById("planT").innerHTML = locationArray[i + 15];
 		document.getElementById("totalT").innerHTML = getCurrency(localStorage.priceStorage);
-		document.getElementById("itemnameT").innerHTML = "";
-		document.getElementById("itemtypeT").innerHTML = "";
 	}
 	syncToStorage();
 }
 
+function getEstimatedDeliveryDate(){
+	var delivDate = new Date();
+	document.getElementById("eddT").innerHTML = delivDate.setDate(delivDate.getDate() + getWaitTime());
+}
+
+function createEventListeners(){
+	var dateField = document.getElementById("eddT");
+	if (dateField.addEventListener) {
+		dateField.addEventListener("load", getEstimatedDeliveryDate, false);
+	} 
+}
+	
 function setUpPage(){
 	loadFromStorage();
 	parseData();
+	createEventListeners();
 }
 
 if (window.addEventListener) {
